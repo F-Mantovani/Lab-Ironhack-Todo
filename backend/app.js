@@ -20,6 +20,7 @@ app.use("/auth", require("./routes/auth.routes"));
 //Rota Privada, pois vai usar o Middleware
 app.use(require("./middlewares/authorize.middleware"));
 app.use("/todo", require("./routes/todos.routes"));
+// app.use("team", require("./routes/teams.routes"));
 
 app.listen(process.env.PORT, () => {
   console.log(`server running on: ${process.env.PORT}`);

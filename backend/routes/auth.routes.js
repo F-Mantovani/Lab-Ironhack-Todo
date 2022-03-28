@@ -12,9 +12,7 @@ router.post("/signup", async (req, res) => {
   const { name, email, password } = req.body;
   try {
     const user = await User.findOne({ email });
-    if (user) {
-      throw new Error("User already exists");
-    }
+    if (user) throw new Error("User already exists");
     const salt = await bcrypt.genSalt(12);
     const passwordHash = await bcrypt.hash(password, salt);
     const newUser = await User.create({
@@ -34,7 +32,7 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-router.get("/login", async (req, res) => {
+router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email });
@@ -47,7 +45,7 @@ router.get("/login", async (req, res) => {
     });
     res.status(200).json({ token, user: user.name });
   } catch (error) {
-    res.status(401).json(error);
+    res.status(401).json(error.message);
   }
 });
 

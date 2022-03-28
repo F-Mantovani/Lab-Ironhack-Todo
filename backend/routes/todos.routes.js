@@ -3,6 +3,7 @@ const { Router } = require("express");
 
 // O modelo que vai ser utilizado na rota;
 const Todo = require("../models/Todo.js");
+const User = require("../models/User.js");
 
 // Execução do router em uma varíavel para facilitar a utilização
 const router = Router();
@@ -10,9 +11,12 @@ const router = Router();
 router.post("/", async (req, res) => {
   const { userId } = req.user;
   const { title, completed } = req.body;
-  console.log(req.user);
   try {
     const newTodo = await Todo.create({ title, completed, user: userId });
+    const user = await User.findOneAndUpdate(
+      { _id: userId },
+      { $push: { todos: newTodo._id } }
+    );
     res.status(201).json(newTodo);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -31,8 +35,12 @@ router.get("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const updateInfo = req.body;
+  const { userId } = req.user;
   try {
     let updatedTodo = await Todo.findById(id);
+    if (updatedTodo.user.toString() !== userId) {
+      throw new Error("You cannot update other's To Do's");
+    }
     updatedTodo.title = updateInfo.title;
     updatedTodo.completed = updateInfo.completed;
     updatedTodo.save();
@@ -44,11 +52,18 @@ router.put("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
+  const { userId } = req.user;
   try {
-    await Todo.findByIdAndDelete(id);
+    const todo = await Todo.findById(id);
+    if (todo.user.toString() !== userId) {
+      const error = new Error("You can't delete other's To Do's");
+      error.status = 401;
+      throw error;
+    }
+    todo.delete();
     res.status(204).json();
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(error.status || 500).json({ error: error.message });
   }
 });
 
