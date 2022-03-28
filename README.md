@@ -8,4 +8,4 @@
 - Node.js
 - Styled Components
 
-[Iron To Do app] (https://iron-todo-front.herokuapp.com/)
+To Do App: https://iron-todo-front.herokuapp.com/
