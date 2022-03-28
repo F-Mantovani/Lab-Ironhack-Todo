@@ -8,9 +8,12 @@ const AddInput = () => {
   const { mutateAsync } = useMutation(apiTodo.createTodo);
 
   const addTodo = async () => {
-    const newTodo = { title: title };
-    await mutateAsync(newTodo);
-    queryClient.invalidateQueries("todoList");
+    try {
+      const newTodo = { title: title };
+      await mutateAsync(newTodo);
+      setTitle("");
+      queryClient.invalidateQueries("todoList");
+    } catch (error) {}
   };
   return (
     <>

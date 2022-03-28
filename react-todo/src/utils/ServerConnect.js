@@ -3,7 +3,14 @@ import axios from "axios";
 class apiTodo {
   constructor() {
     this.api = axios.create({
-      baseURL: "http://localhost:9000/todo",
+      baseURL: "https://iron-todo-lab.herokuapp.com/todo",
+    });
+    this.api.interceptors.request.use((config) => {
+      const token = window.sessionStorage.getItem("token");
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
     });
   }
 
@@ -12,14 +19,13 @@ class apiTodo {
       const { data } = await this.api.get("/");
       return data;
     } catch (error) {
-      throw new Error("Cannot Fetch Data");
+      throw error;
     }
   };
 
   updateOneTodo = async ({ id, todoInfo }) => {
     try {
       const { data } = await this.api.put(`/${id}`, todoInfo);
-      console.log(todoInfo);
       return data;
     } catch (error) {
       throw new Error("Cannot Update To Do");
@@ -31,7 +37,7 @@ class apiTodo {
       const { data } = await this.api.delete(`/${id}`);
       return data;
     } catch (error) {
-      throw new Error("Cannot Remove To Do");
+      console.error(error.stack);
     }
   };
 
