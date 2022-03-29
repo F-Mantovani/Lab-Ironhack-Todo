@@ -16,7 +16,6 @@ const TodoList = () => {
     <>
       <div style={{ textAlign: "center" }}>
         <h1>To Do List</h1>
-        <h2>This is the To Do list for: {user} </h2>
         <AddInput />
         {data.map((todo) => (
           <ToDo key={todo._id} {...todo} />
