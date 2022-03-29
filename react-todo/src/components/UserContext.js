@@ -12,7 +12,7 @@ export function useUserUpdate() {
 }
 
 function UserContext({ children }) {
-  const [user, setUser] = useState("oi");
+  const [user, setUser] = useState("");
 
   function changeUser(data) {
     setUser(data);

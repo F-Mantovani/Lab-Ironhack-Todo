@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "react-query";
 import apiTodo from "../utils/ServerConnect.js";
 import RemoveButton from "./RemoveButton.jsx";
 
-const ToDo = ({ id, title, completed }) => {
+const ToDo = ({ id, title, completed, user }) => {
   const queryClient = useQueryClient();
   const [complete, setComplete] = useState(completed);
   const { mutateAsync } = useMutation(apiTodo.updateOneTodo);
@@ -30,14 +30,23 @@ const ToDo = ({ id, title, completed }) => {
         justifyContent: "space-between",
       }}
     >
-      <div>
-        <input
-          type="checkbox"
-          checked={complete}
-          readOnly
-          onClick={toggleStatus}
-        />
-        <span> {title}</span>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+        }}
+      >
+        <div>
+          <input
+            type="checkbox"
+            checked={complete}
+            readOnly
+            onClick={toggleStatus}
+          />
+          <span> {title}</span>
+        </div>
+        <p style={{ margin: "0 0 0 1.5rem" }}>Created by: {user.name}</p>
       </div>
       <RemoveButton id={id} />
     </div>

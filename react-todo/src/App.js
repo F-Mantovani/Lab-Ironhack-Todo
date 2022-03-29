@@ -1,22 +1,32 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
 import TodoList from "./components/TodoList";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Login from "./components/Login";
 import UserContext from "./components/UserContext";
-import { BrowserRouter, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute";
+import NavBar from "./components/NavBar";
 
 const queryClient = new QueryClient();
 
 function App() {
-  const [isAuth, setAuth] = useState(false);
-
   return (
     <>
       <UserContext>
         <QueryClientProvider client={queryClient}>
-          <Login setAuth={setAuth} />
-          {isAuth && <TodoList />}
+          <NavBar />
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route
+              path="todo"
+              element={
+                <ProtectedRoute>
+                  <TodoList />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
         </QueryClientProvider>
       </UserContext>
     </>

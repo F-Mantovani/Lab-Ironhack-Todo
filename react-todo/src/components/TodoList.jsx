@@ -18,8 +18,8 @@ const TodoList = () => {
         <h1>To Do List</h1>
         <h2>This is the To Do list for: {user} </h2>
         <AddInput />
-        {data.map(({ _id, title, completed }) => (
-          <ToDo key={_id} title={title} completed={completed} id={_id} />
+        {data.map((todo) => (
+          <ToDo key={todo._id} {...todo} />
         ))}
       </div>
     </>

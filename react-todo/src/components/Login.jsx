@@ -3,6 +3,7 @@ import { useMutation } from "react-query";
 import apiLogin from "../utils/LoginConnect.js";
 import { useUserUpdate } from "./UserContext.js";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const Input = styled.input`
   border-radius: 5px;
@@ -33,7 +34,7 @@ const InputBox = styled.div`
 
 const LogBox = styled.div`
   max-width: 40rem;
-  margin: 20% auto;
+  margin: 12% auto;
   border: 1 solid black;
   border-radius: 5px;
   box-shadow: 4px 4px 8px 0px #333;
@@ -49,6 +50,7 @@ const Login = ({ setAuth }) => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const changeUser = useUserUpdate();
+  const navigate = useNavigate();
 
   const myStorage = window.sessionStorage;
   const { mutateAsync: logUser } = useMutation(apiLogin.logIn);
@@ -62,7 +64,7 @@ const Login = ({ setAuth }) => {
       changeUser(data.user);
       setEmail("");
       setPassword("");
-      setAuth(true);
+      navigate("/todo");
     } catch (error) {
       console.log(error.message);
     }
@@ -71,7 +73,7 @@ const Login = ({ setAuth }) => {
   const signUp = async () => {
     try {
       const payload = { email, password, name };
-      const data = await createUser(payload);
+      await createUser(payload);
       setEmail("");
       setPassword("");
       setName("");
