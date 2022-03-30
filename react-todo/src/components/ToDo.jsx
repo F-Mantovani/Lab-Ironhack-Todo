@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "react-query";
 import apiTodo from "../utils/ServerConnect.js";
 import RemoveButton from "./RemoveButton.jsx";
 
-const ToDo = ({ id, title, completed, user }) => {
+const ToDo = ({ _id, title, completed, user }) => {
   const queryClient = useQueryClient();
   const [complete, setComplete] = useState(completed);
   const { mutateAsync } = useMutation(apiTodo.updateOneTodo);
@@ -11,12 +11,12 @@ const ToDo = ({ id, title, completed, user }) => {
   const toggleStatus = async () => {
     try {
       const todoInfo = { title: title, completed: !complete };
-      await mutateAsync({ id, todoInfo });
+      await mutateAsync( _id, todoInfo );
       queryClient.invalidateQueries("todoList");
       setComplete(!complete);
     } catch (error) {}
   };
-
+ 
   return (
     <div
       style={{
@@ -48,7 +48,7 @@ const ToDo = ({ id, title, completed, user }) => {
         </div>
         <p style={{ margin: "0 0 0 1.5rem" }}>Created by: {user.name}</p>
       </div>
-      <RemoveButton id={id} />
+      <RemoveButton id={_id} />
     </div>
   );
 };

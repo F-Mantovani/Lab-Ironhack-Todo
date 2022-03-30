@@ -13,9 +13,13 @@ const Profile = () => {
 
   const sendFile = async () => {
     const formData = new FormData()
+    // formData.append('upload_preset','iks0jsgy')
     formData.append('image', image)
-    formData.append('upload_preset','iks0jsgy')
-    await imageApi.handleUpload(userId, formData)
+    try {
+      await imageApi.handleUpload(userId, formData)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (

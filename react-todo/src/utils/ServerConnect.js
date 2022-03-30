@@ -23,7 +23,8 @@ class apiTodo {
     }
   };
 
-  updateOneTodo = async ({ id, todoInfo }) => {
+  updateOneTodo = async ( id, todoInfo ) => {
+    console.log(id)
     try {
       const { data } = await this.api.put(`/${id}`, todoInfo);
       return data;

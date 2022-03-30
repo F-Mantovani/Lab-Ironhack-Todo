@@ -62,7 +62,6 @@ const Login = ({ setAuth }) => {
       const data = await logUser(payload);
       const { user, userId} = data.payload
       myStorage.setItem("token", data.token);
-      console.log(user, userId)
       changeUser({user, userId});
       setEmail("");
       setPassword("");
