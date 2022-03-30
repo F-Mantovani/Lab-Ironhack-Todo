@@ -7,6 +7,7 @@ import UserContext from "./components/UserContext";
 import { Route, Routes } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NavBar from "./components/NavBar";
+import Profile from "./components/Profile";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
+          <Route path="profile" element={<Profile />}/>
           </Routes>
         </QueryClientProvider>
       </UserContext>

@@ -23,6 +23,7 @@ const AddInput = () => {
         name="title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
+        style={{margin:"2em auto"}}
       ></input>
       <button onClick={addTodo}>Add</button>
     </>

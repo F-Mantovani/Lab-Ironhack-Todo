@@ -37,7 +37,7 @@ function NavBar() {
         >
           To Do List
         </NavLink>
-        {user && <p>Logged as: {user}</p>}
+        {user && <NavLink to="profile"><p>Logged as: {user}</p></NavLink>}
       </div>
     </nav>
   );

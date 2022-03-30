@@ -12,6 +12,7 @@ const userSchema = new Schema(
     },
     passwordHash: { type: String, required: true },
     todos: [{ type: Schema.Types.ObjectId, ref: "todo" }],
+    image: { type: String }
   },
   { timestamps: true }
 );
