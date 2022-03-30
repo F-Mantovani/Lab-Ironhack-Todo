@@ -3,7 +3,7 @@ import axios from "axios";
 class apiTodo {
   constructor() {
     this.api = axios.create({
-      baseURL: "http://localhost:9000/todo",
+      baseURL: `${process.env.REACT_APP_API_URL}/todo`,
     });
     this.api.interceptors.request.use((config) => {
       const token = window.sessionStorage.getItem("token");

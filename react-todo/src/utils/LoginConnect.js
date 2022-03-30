@@ -3,7 +3,7 @@ import axios from "axios";
 class apiLogin {
   constructor() {
     this.api = axios.create({
-      baseURL: "http://localhost:9000/auth",
+      baseURL: `${process.env.REACT_APP_API_URL}/auth`,
     });
   }
 
