@@ -11,7 +11,7 @@ const app = express();
 // Permitir que o express leia .json => antigo bodyParser
 app.use(express.json());
 // Permitir que outros lugares chamem essa API
-app.use(cors());
+app.use(cors())
 
 // rotas da aplicação
 //Rota Pública
