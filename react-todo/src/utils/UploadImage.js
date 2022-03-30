@@ -3,7 +3,7 @@ import axios from "axios";
 class imageApi{
   constructor(){
     this.api = axios.create({
-      baseURL: "http://localhost:9000/user",
+      baseURL: `${process.env.REACT_APP_API_URL}/user`,
     })
     this.api.interceptors.request.use((config) => {
       const token = window.sessionStorage.getItem("token");
