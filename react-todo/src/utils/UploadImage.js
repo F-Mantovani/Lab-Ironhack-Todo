@@ -16,7 +16,7 @@ class imageApi{
 
   handleUpload = async (id, theFile) => {
     try {
-      const { data } = await this.api.post(`/${id}`, theFile)
+      const { data } = await this.api.post(`/${id}/uploadImage`, theFile)
       return data
     } catch (error) {
       throw error

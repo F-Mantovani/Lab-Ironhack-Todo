@@ -4,7 +4,7 @@ import { useUser } from "./UserContext";
 import logo from "../assets/to-do-list.png";
 
 function NavBar() {
-  const user = useUser();
+  const { user } = useUser();
   return (
     <nav
       style={{

@@ -1,22 +1,21 @@
 import React, { useState } from 'react'
 import imageApi from "../utils/UploadImage";
+import { useUser } from './UserContext';
 
 const Profile = () => {
 
   const [image, setImage] = useState({ image: null })
+  const { userId } = useUser()
 
   const uploadHandler = (e) => {
-    setImage({ image :e.target.files[0] })
+    setImage({ image: e.target.files[0] })
   }
+
   const sendFile = async () => {
-    console.log(image)
-    let formData = new FormData()
-    console.log('formData antes do append' , formData)
-    formData.append('image', image.name)
-    console.log("depois do append" , formData)
-
+    const formData = new FormData()
+    formData.append('image', image)
+    await imageApi.handleUpload(userId, formData)
   }
-
 
   return (
     <div style={{margin: "25%"}}>
