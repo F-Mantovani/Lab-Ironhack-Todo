@@ -60,9 +60,9 @@ const Login = ({ setAuth }) => {
     try {
       const payload = { email, password };
       const data = await logUser(payload);
-      const { user, userId} = data.payload
+      const { userId} = data.payload
+      changeUser({name: data.payload.user, userId});
       myStorage.setItem("token", data.token);
-      changeUser({user, userId});
       setEmail("");
       setPassword("");
       navigate("/todo");

@@ -3,7 +3,7 @@ import axios from "axios";
 class apiTodo {
   constructor() {
     this.api = axios.create({
-      baseURL: "https://iron-todo-lab.herokuapp.com/todo",
+      baseURL: "http://localhost:9000/todo",
     });
     this.api.interceptors.request.use((config) => {
       const token = window.sessionStorage.getItem("token");
@@ -23,10 +23,11 @@ class apiTodo {
     }
   };
 
-  updateOneTodo = async ( id, todoInfo ) => {
-    console.log(id)
+  updateOneTodo = async ( todoInfo ) => {
+    const { id } = todoInfo
+    const todoUpdate = {title: todoInfo.title, completed: todoInfo.completed}
     try {
-      const { data } = await this.api.put(`/${id}`, todoInfo);
+      const { data } = await this.api.put(`/${id}`, todoUpdate);
       return data;
     } catch (error) {
       throw new Error("Cannot Update To Do");

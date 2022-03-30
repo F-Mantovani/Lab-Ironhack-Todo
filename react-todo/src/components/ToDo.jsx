@@ -10,8 +10,8 @@ const ToDo = ({ _id, title, completed, user }) => {
 
   const toggleStatus = async () => {
     try {
-      const todoInfo = { title: title, completed: !complete };
-      await mutateAsync( _id, todoInfo );
+      const todoInfo = { title: title, completed: !complete, id: _id };
+      await mutateAsync( todoInfo );
       queryClient.invalidateQueries("todoList");
       setComplete(!complete);
     } catch (error) {}

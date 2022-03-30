@@ -4,7 +4,7 @@ import { useUser } from "./UserContext";
 import logo from "../assets/to-do-list.png";
 
 function NavBar() {
-  const { user } = useUser();
+  const user = useUser();
   return (
     <nav
       style={{
@@ -37,7 +37,7 @@ function NavBar() {
         >
           To Do List
         </NavLink>
-        {user && <NavLink to="profile"><p>Logged as: {user}</p></NavLink>}
+        {user && <NavLink to="profile"><p>Logged as: {user.name}</p></NavLink>}
       </div>
     </nav>
   );
