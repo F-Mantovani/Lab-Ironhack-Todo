@@ -55,7 +55,6 @@ const Login = ({ setAuth }) => {
   const myStorage = window.sessionStorage;
   const { mutateAsync: logUser } = useMutation(apiLogin.logIn);
   const { mutateAsync: createUser } = useMutation(apiLogin.signUp);
-
   const logIn = async () => {
     try {
       const payload = { email, password };
